@@ -1,0 +1,63 @@
+const list = {
+    "create a new practice task": "In Progress",
+    "make a bed": "Done",
+    "write a post": "To Do",
+}
+
+
+function addTask(newName, newMeaning) {
+    let name = newName;
+    objAddTask = { [name]: newMeaning };
+    Object.assign(list, objAddTask);
+}
+
+
+function changeStatus(status, meaning) {
+    let name = status;
+    list[name] = meaning;
+};
+
+
+function deleteTask(deleteMeaning) {
+    delete list[deleteMeaning];
+}
+
+
+function showList() {
+
+    console.log(`Todo:`);
+    for (let key in list) {
+        console.log(`  ${key}`);
+    }
+    console.log(`In Progress:`);
+    for (key in list) {
+        if (!(list[key] == "выполнено")) {
+            console.log(`  ${key}`);
+        }
+    };
+    console.log(`Done:`);
+    for (key in list) {
+        if (list[key] == "выполнено") {
+            console.log(key);
+        }
+    }
+}
+
+
+addTask("пойти поесть", "выполнено");
+addTask("почитать книгу", "не выполнено");
+addTask("заняться спортом", "не выполнено");
+addTask("уволиться с работы", "выполнено");
+addTask("поплавать в бассейне", "не выполнено");
+
+changeStatus("make a bed", "выполнено");
+changeStatus("write a post", "не выполнено");
+changeStatus("заняться спортом", "выполнено");
+changeStatus("поплавать в бассейне", "выполнено");
+
+deleteTask("create a new practice task");
+deleteTask("write a post");
+deleteTask("make a bed");
+deleteTask("уволиться с работы");
+
+showList();
