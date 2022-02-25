@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo_list</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="todo__main todo">
+        <div class="todo__container _container">
+            <div class="todo__high high">
+                <div class="high__title title">
+                    <h4>HIGH</h4>
+                </div>
+                <div class="high__add add">
+                    <textarea id="add__text-high" class="add__text" placeholder="добавить важных дел"></textarea>
+                    <input id="add__new-text-high" class="add__img" src="img/close-icon.svg" alt="add" type="image">
+                </div>
+                <div class="high__body block-new-task" id="high__body">
+                    <div class="high__task task">
+                        <input id="custom-checkbox1" type="checkbox" class="task__checkbox">
+                        <label for="custom-checkbox1"></label>
+                        <h5 class="task__name">Вот вам и супер интересная тема.
+                            Вы наверняка заметили что ваши файлы с кодом становятся все объемнее, что хочется вынести
+                            некоторые вещи куда-то за пределы основной программы. </h5>
+                        <input class="task__img" src="img/close-icon (1).svg" alt="del" id="del-task" type="image">
+                    </div>
+                    <div class="high__task task">
+                        <input id="custom-checkbox2" type="checkbox" class="task__checkbox">
+                        <label for="custom-checkbox2"></label>
+                        <h5 class="task__name">Сверстать этот TODO list</h5>
+                        <input class="task__img" src="img/close-icon (1).svg" alt="del" id="del-task" type="image">
+                    </div>
+                    <div class="high__task task">
+                        <input id="custom-checkbox3" type="checkbox" checked class="task__checkbox">
+                        <label for="custom-checkbox3"></label>
+                        <h5 class="task__name">Начать делать задачу</h5>
+                        <input class="task__img" src="img/close-icon (1).svg" alt="del" id="del-task" type="image">
+                    </div>
+                </div>
+            </div>
+            <div class="todo__low low">
+                <div class="low__title title">
+                    <h4>LOW</h4>
+                </div>
+                <div class="low__add add">
+                    <textarea id="add__text-low" cols="30" rows="10" class="add__text"
+                        placeholder="добавить"></textarea>
+                    <input id="add__new-text-low" class="add__img" src="img/close-icon.svg" alt="add" type="image">
+                </div>
+                <div class="low__body block-new-task" id="low__body">
+                    <div class="low__task task">
+                        <input id="custom-checkbox4" type="checkbox" class="task__checkbox">
+                        <label for="custom-checkbox4"></label>
+                        <h4 class="task__name">Посмотреть ютубчик.</h4>
+                        <input class="task__img" src="img/close-icon (1).svg" alt="del" type="image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/main.js"></script>
+    <script src="js/view.js" type="module"></script>
+</body>
+
+</html>
