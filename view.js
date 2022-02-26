@@ -1,3 +1,96 @@
+const STATUS = {
+    TO_DO: "to do",
+    DONE: "done",
+    IN_PROGRESS: "in progress",
+}
+const DEFAULT_STATUS = STATUS.TO_DO;
+const PRIORITY = {
+    HIGH: "high",
+    LOW: "low",
+}
+const DEFAULT_PRIORITY = PRIORITY.LOW;
+
+
+const list = [
+    { name: "Вот вам и супер интересная тема. Вы наверняка заметили что ваши файлы с кодом становятся все объемнее, что хочется вынести некоторые вещи куда-то за пределы основной программы.", status: STATUS.DONE, priority: PRIORITY.HIGH },
+    { name: "Сверстать этот TODO list", status: STATUS.DONE, priority: PRIORITY.HIGH },
+    { name: "Начать делать задачу", status: STATUS.TO_DO, priority: PRIORITY.HIGH },
+    { name: "Посмотреть ютубчик.", status: STATUS.DONE, priority: PRIORITY.LOW },
+]
+
+
+function addTask(newName, newStatus = DEFAULT_STATUS, newPriority = DEFAULT_PRIORITY) {
+    newName = newName.toLowerCase();
+    newStatus = newStatus.toLowerCase();
+    newPriority = newPriority.toLowerCase();
+
+    list.push({ name: newName, status: newStatus, priority: newPriority })
+}
+
+function changeStatus(name, newStatus) {
+    name = name.toLowerCase();
+    newStatus = newStatus.toLowerCase();
+
+    let findStatus = list.findIndex(item => item.name === name);
+    list[findStatus].status = newStatus;
+}
+
+function deleteTask(name) {
+    name = name.toLowerCase();
+
+    let findDeleteName = list.findIndex(item => item.name === name);
+    list.splice(findDeleteName, 1);
+}
+
+function showList(choiceShow = DEFAULT_STATUS) {
+    choiceShow = choiceShow.toLowerCase();
+
+    console.log(`${STATUS.TO_DO}:`);
+    for (let listItem of list) {
+        console.log(`\t${listItem.name}`);
+    }
+
+    let resultStatus = choiceShow === STATUS.TO_DO || choiceShow === STATUS.IN_PROGRESS || choiceShow === STATUS.DONE;
+    let resultBy = choiceShow === PRIORITY.HIGH || choiceShow === PRIORITY.LOW;
+
+    if (resultStatus) {
+        function showStatus() {
+            console.log(`${STATUS.IN_PROGRESS}:`);
+            for (let listItem of list) {
+                if (listItem.status !== STATUS.DONE) {
+                    console.log(`\t${listItem.name}`);
+                }
+            }
+            console.log(`${STATUS.DONE}:`);
+            for (let listItem of list) {
+                if (listItem.status === STATUS.DONE) {
+                    console.log(`\t${listItem.name}`);
+                }
+            }
+        }
+        showStatus()
+
+    } else if (resultBy) {
+        function showBy() {
+            console.log(`${PRIORITY.HIGH}:`);
+            for (listItem of list) {
+                if (listItem.priority === PRIORITY.HIGH) {
+                    console.log(`\t${listItem.name}`);
+                }
+            }
+            console.log(`${PRIORITY.LOW}:`);
+            for (listItem of list) {
+                if (listItem.priority === PRIORITY.LOW) {
+                    console.log(`\t${listItem.name}`);
+                }
+            }
+        }
+        showBy()
+
+    } else
+        console.log('ERROR!');
+}
+
 //HIHG
 const addHighBody = document.getElementById('high__body');
 // HIHG(Enter)
@@ -11,6 +104,7 @@ newTaskNameHigh.addEventListener('keydown', (e) => {
             ${newTaskNameHigh.value}
             </h5><input class="task__img" src="img/close-icon (1).svg" alt="del" id="del-task" type="image"></div>`
         )
+
     }
     // Удаляем задачу 
     const delTaskParent = document.querySelectorAll('.task');
@@ -45,7 +139,6 @@ function clickHighImg() {
     }
 }
 addNewTaskNameHigh.addEventListener('click', clickHighImg);
-
 
 // LOW
 const addLowBody = document.getElementById('low__body');
@@ -94,140 +187,3 @@ function clickLowImg() {
     }
 }
 addNewTaskNameLow.addEventListener('click', clickLowImg);
-console.log(list);
-
-
-// Работа с high__body
-
-// Удаляем задачу 
-// const delTaskParent = document.querySelectorAll('.task');
-// const delTaskChild = document.querySelectorAll('.task__img');
-// for (let elementImg of delTaskChild) {
-//     function clickDelTask() {
-//         const parentElementImg = elementImg.closest('.task');
-//         parentElementImg.remove();
-//     }
-//     elementImg.addEventListener('click', clickDelTask);
-// }
-
-
-// мой на половину рабочий вариант
-// const delTaskBody = document.querySelector('.high__body');
-// function clickDelTask() {
-//     const getElem = document.querySelector('.task__img')
-//     const parentElement = getElem.closest('.high__task');
-//     parentElement.remove();
-// }
-
-// delTaskBody.addEventListener('click', clickDelTask);
-
-
-// const delTaskParent = document.querySelectorAll('.high__body');
-// const delTaskChild = document.querySelector('.task__img')
-// function clickDelTask() {
-//     const parentElement = delTaskChild.closest('.high__task');
-//     parentElement.remove();
-// }
-// delTaskChild.addEventListener('click', clickDelTask);
-
-// вариант через перебор
-// const delTaskParent = document.querySelectorAll('.task');
-// const delTaskChild = document.querySelectorAll('.task__img');
-// for (let elementImg of delTaskChild) {
-//     function clickDelTask() {
-//         const parentElementImg = elementImg.closest('.task');
-//         parentElementImg.remove();
-//     }
-//     elementImg.addEventListener('click', clickDelTask);
-// }
-
-// function clickDelTask() {
-//     const parentElement = delTaskChild.closest('.high__task');
-//     parentElement.remove();
-// }
-// delTaskChild.addEventListener('click', clickDelTask);
-
-// console.log(delTaskBody);
-
-// Меняем статус задачи
-const changeStatusTask = document.getElementById('custom-checkbox1');
-// console.log(changeStatusTask);
-
-
-
-
-// Добавляем новую задачу
-
-// if (clickHighImg() !== undefined && clickHighImg() !== '' && clickHighImg() !== null) {
-//     let n = 4;
-//     addHighBody.insertAdjacentHTML('afterend',
-//         `<div class="high__task task"><input id="custom-checkbox${++n}" type="checkbox" class="task__checkbox"><label for="custom-checkbox${n}"></label><h5 class="task__name">
-//     ${clickHighImg()}
-//     </h5><img class="task__img" src="img/close-icon (1).svg" alt="del"></div>`
-//     )
-// }
-
-// ${list.push({ name: newName, status: newStatus, priority: newPriority })}
-
-
-
-// функция для добавления текста из textarea в list и создания элемента html
-
-// const addHighBody = document.getElementById('high__body');
-// function addElement() {
-//     let n = 4;
-//     addHighBody.insertAdjacentHTML('afterend',
-//         `<div class="high__task task"><input id="custom-checkbox${++n}" type="checkbox" class="task__checkbox"><label for="custom-checkbox${n}"></label><h5 class="task__name">
-//     ${newTaskNameHigh.value}
-//     </h5><img class="task__img" src="img/close-icon (1).svg" alt="del"></div>`
-//     )
-// }
-// addNewTaskNameHigh.addEventListener('click', addElement);
-
-
-
-// const newTaskNameHigh = document.getElementById('add__text-high');
-// newTaskNameHigh.addEventListener('keydown', addNewTask);
-// function addNewTask() {
-//     // добавление при нажатии на enter текста из textarea в list
-//     (e) => {
-//         if (e.key == "Enter") {
-//             addTask(newTaskNameHigh.value, DEFAULT_STATUS, PRIORITY.HIGH);
-//         }
-//     }
-//     // создания элемента html с текстом этого нового значения
-//     const addHighBody = document.getElementById('high__body');
-//     if (newTaskNameHigh.value !== undefined && newTaskNameHigh.value !== '' && newTaskNameHigh.value !== null) {
-//         let n = 4;
-//         addHighBody.insertAdjacentHTML('afterend',
-//             `<div class="high__task task"><input id="custom-checkbox${++n}" type="checkbox" class="task__checkbox"><label for="custom-checkbox${n}"></label><h5 class="task__name">
-//     ${newTaskNameHigh.value}
-//     </h5><img class="task__img" src="img/close-icon (1).svg" alt="del"></div>`
-//         )
-//     }
-// }
-
-
-// не верно
-// const newTaskNameHigh = document.getElementById('add__text-high');
-// newTaskNameHigh.addEventListener('keydown', addNewTask);
-// function addNewTask() {
-//     // добавление при нажатии на enter текста из textarea в list
-//     (e) => {
-//         switch (e.key) {
-//             case "Enter":
-//                 addTask(newTaskNameHigh.value, DEFAULT_STATUS, PRIORITY.HIGH);
-//                 const addHighBody = document.getElementById('high__body');
-//                 if (newTaskNameHigh.value !== undefined && newTaskNameHigh.value !== '' && newTaskNameHigh.value !== null) {
-//                     let n = 4;
-//                     addHighBody.insertAdjacentHTML('afterend',
-//                         `<div class="high__task task"><input id="custom-checkbox${++n}" type="checkbox" class="task__checkbox"><label for="custom-checkbox${n}"></label><h5 class="task__name">
-//                         ${newTaskNameHigh.value}
-//                         </h5><img class="task__img" src="img/close-icon (1).svg" alt="del"></div>`
-//                     )
-
-//                     break;
-//                 }
-//         }
-//     }
-// }    
